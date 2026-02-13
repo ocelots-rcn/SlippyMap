@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Base meta tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+        <title>Python Map Tutorial</title>
+
+        <!-- Necessary components for PyScript -->
+        <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css">
+        <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+
+        <!-- CSS for project -->
+        <style media="screen">
+            #map-area {
+                height: 500px;
+                border: 2px solid #CCCCCC;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map-area"></div>
+
+        <!-- Python for project -->
+        <py-config>
+            packages = ['folium', 'requests']
+        </py-config>
+        <script type="py">
+            import folium
+            import requests
+            from pyscript import display
+            from folium.raster_layers import ImageOverlay
+            from js import window
+
+            # Note we have to explicitly set the height when creating the map object
+            map = folium.Map(location=[10.240, -84.041], zoom_start=9, height='500px', tiles=None)
+            folium.raster_layers.TileLayer(tiles='OpenStreetMap', name='OpenStreetMap').add_to(map)
+
+            current_url = window.location.href
+            hillshade_url = f'{current_url[0:current_url.rfind("/")]}/layers/hillshade.png'
+            hillshade_bounds = [[9.7784494, -84.5887677], [10.7022354, -83.4716701]]
+            ImageOverlay(image=hillshade_url, bounds=hillshade_bounds, name='Hillshade').add_to(map)
+
+
+            def get_style(feature):
+                class_color = ''
+                if feature['properties']['class'] == 1:
+                    class_color = '#80b388'
+                elif feature['properties']['class'] == 2:
+                    class_color = '#c6e3ad'
+                elif feature['properties']['class'] == 3:
+                    class_color = '#f4eeb2'
+                elif feature['properties']['class'] == 4:
+                    class_color = '#f5d485'
+                elif feature['properties']['class'] == 5:
+                    class_color = '#f0a46a'
+                elif feature['properties']['class'] == 6:
+                    class_color = '#da8862'
+                else:
+                    class_color = '#FFFFFF'
+
+                return {
+                    'weight': 0,
+                    'fillOpacity': 0.75,
+                    'fillColor': class_color
+                }
+
+
+            elevation_url = f'{current_url[0:current_url.rfind("/")]}/layers/elevation.geojson'
+            response = requests.get(elevation_url)
+            if response.status_code == 200:
+                elevation = response.json()
+                folium.GeoJson(response.json(), style_function=get_style, name='Elevation').add_to(map)
+            else:
+                #  Here you would add error handling and notification
+                pass
+
+            layer_control = folium.LayerControl().add_to(map)
+
+            elevation_legend = None
+            def gen_elevation_legend():
+                legend = """
+                    <div style='position: fixed;
+                                bottom: 10px; left: 10px;
+                                background-color: white; z-index: 600; padding: 10px;
+                                opacity: 0.9;'>
+                        <span style="font-size: 1.2em;font-weight: bold">Elevation (m)</span><br/>
+                        <div style="height: 24px"><i style="width: 18px;height: 18px;float: left;margin-right: 8px;border: 1px solid #aaaaaa;background-color: #80b388"></i> &lt;= 500</div>
+                        <div style="height: 24px"><i style="width: 18px;height: 18px;float: left;margin-right: 8px;border: 1px solid #aaaaaa;background-color: #c6e3ad"></i>500 &ndash; 1000</div>
+                        <div style="height: 24px"><i style="width: 18px;height: 18px;float: left;margin-right: 8px;border: 1px solid #aaaaaa;background-color: #f4eeb2"></i>1000 &ndash; 1500</div>
+                        <div style="height: 24px"><i style="width: 18px;height: 18px;float: left;margin-right: 8px;border: 1px solid #aaaaaa;background-color: #f5d485"></i>1500 &ndash; 2000</div>
+                        <div style="height: 24px"><i style="width: 18px;height: 18px;float: left;margin-right: 8px;border: 1px solid #aaaaaa;background-color: #f0a46a"></i>2000 &ndash; 2500</div>
+                        <div style="height: 24px"><i style="width: 18px;height: 18px;float: left;margin-right: 8px;border: 1px solid #aaaaaa;background-color: #da8862"></i>2500 &ndash; 3000</div>
+                        <div style="height: 24px"><i style="width: 18px;height: 18px;float: left;margin-right: 8px;border: 1px solid #aaaaaa;background-color: #ffffff"></i>3000 &ndash; 3500</div>
+                    </div>
+                """
+                elevation_legend = folium.Element(legend)
+                map.get_root().html.add_child(elevation_legend)
+            
+            gen_elevation_legend()
+
+            display(map, target='map-area')
+        </script>
+    </body>
+</html>

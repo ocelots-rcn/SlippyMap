@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Base meta tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+        <title>JavaScript Map Tutorial</title>
+
+        <!-- Necessary components for Leaflet -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""/>
+        <script
+            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin="">
+        </script>
+
+        <!-- Extra libraries -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <!-- CSS for project -->
+        <style media="screen">
+            #map-area {
+            height: 500px;
+            border: 2px solid #CCCCCC;
+            overflow: hidden;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="map-area"></div>
+
+        <!-- JavaScript for project -->
+        <script>
+        var map = L.map('map-area').setView([10.240, -84.041], 9);
+
+        const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        const layerControl = L.control.layers({'OpenStreetMap': osm}).addTo(map);
+
+        const ewi = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+
+        layerControl.addBaseLayer(ewi, 'ESRI World Imagery');
+
+        const hillshade_url = '../layers/hillshade.png';
+        const hillshade_bounds = [[9.7784494, -84.5887677], [10.7022354, -83.4716701]];
+        const hillshade = L.imageOverlay(hillshade_url, hillshade_bounds).addTo(map);
+        layerControl.addOverlay(hillshade, 'Hillshade');
+
+        const elevationStyle = (feature) => {
+            let classColor = '';
+            switch(feature.properties.class) {
+                case 1:
+                    classColor = '#80b388';
+                    break;
+                case 2:
+                    classColor = '#c6e3ad';
+                    break;
+                case 3:
+                    classColor = '#f4eeb2';
+                    break;
+                case 4:
+                    classColor = '#f5d485';
+                    break;
+                case 5:
+                    classColor = '#f0a46a';
+                    break;
+                case 6:
+                    classColor = '#da8862';
+                    break;
+                default:
+                    classColor = '#FFFFFF';
+            }
+            /* Return a style for the polygon based on 'class' */
+            return {
+                weight: 0,
+                fillOpacity: 0.75,
+                fillColor: classColor
+            }
+        };
+
+        axios.get('../layers/elevation.geojson')
+        .then( response => {
+            const elevation = L.geoJson(response.data, {style: elevationStyle}).addTo(map);
+            layerControl.addOverlay(elevation, 'Elevation');
+        })
+        .catch( error => {
+            /* Here you would add error handling and notification */
+            console.log(error);
+        })
+        .finally( () => {
+
+        });
+
+        </script>
+    </body>
+</html>

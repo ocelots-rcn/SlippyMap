@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Base meta tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+        <title>Python Map Tutorial</title>
+
+        <!-- Necessary components for PyScript -->
+        <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css">
+        <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+
+        <!-- CSS for project -->
+        <style media="screen">
+            #map-area {
+                height: 500px;
+                border: 2px solid #CCCCCC;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map-area"></div>
+
+        <!-- Python for project -->
+        <py-config>
+            packages = ['folium']
+        </py-config>
+        <script type="py">
+            import folium
+            from pyscript import display
+
+            # Note we have to explicitly set the height when creating the map object
+            map = folium.Map(location=[10.240, -84.041], zoom_start=9, height='500px', tiles=None)
+            folium.raster_layers.TileLayer(tiles='OpenStreetMap', name='OpenStreetMap').add_to(map)
+
+            display(map, target='map-area')
+        </script>
+    </body>
+</html>
