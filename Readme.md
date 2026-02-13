@@ -5,10 +5,13 @@ The purpose of this tutorial is to outline the fundamental steps for building a 
 
 The tutorial is not and in-depth introduction to programming languages or concepts and assumes the reader has some programming background. 
 
+## Mapping Objective
+Create a map to display the distribution of beetles in the genus Cephaloleia found along an elevational transect at La Selva Research Station, Costa Rica.
+
 ## Initial Set Up
 You can download this repo to your local computer by clicking the green [<> Code] button and then selecting the [download zip] option or by using
 ```bash
-git clone *URL*
+git clone https://github.com/ocelots-rcn/SlippyMap
 ```
 if you are familiar with using the distributed version control software system git.
 
