@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Base meta tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+        <title>JavaScript Map Tutorial</title>
+
+        <!-- Necessary components for Leaflet -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""/>
+        <script
+            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin="">
+        </script>
+
+        <!-- Extra libraries -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <!-- CSS for project -->
+        <style media="screen">
+            #map-area {
+            height: 500px;
+            border: 2px solid #CCCCCC;
+            overflow: hidden;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="map-area"></div>
+
+        <!-- JavaScript for project -->
+        <script>
+        var map = L.map('map-area').setView([10.240, -84.041], 9);
+
+        const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        const layerControl = L.control.layers({'OpenStreetMap': osm}).addTo(map);
+
+        const ewi = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+
+        layerControl.addBaseLayer(ewi, 'ESRI World Imagery');
+
+        const hillshade_url = '../layers/hillshade.png';
+        const hillshade_bounds = [[9.7784494, -84.5887677], [10.7022354, -83.4716701]];
+        const hillshade = L.imageOverlay(hillshade_url, hillshade_bounds).addTo(map);
+        layerControl.addOverlay(hillshade, 'Hillshade');
+
+        const elevationStyle = (feature) => {
+            let classColor = '';
+            switch(feature.properties.class) {
+                case 1:
+                    classColor = '#80b388';
+                    break;
+                case 2:
+                    classColor = '#c6e3ad';
+                    break;
+                case 3:
+                    classColor = '#f4eeb2';
+                    break;
+                case 4:
+                    classColor = '#f5d485';
+                    break;
+                case 5:
+                    classColor = '#f0a46a';
+                    break;
+                case 6:
+                    classColor = '#da8862';
+                    break;
+                default:
+                    classColor = '#FFFFFF';
+            }
+            /* Return a style for the polygon based on 'class' */
+            return {
+                weight: 0,
+                fillOpacity: 0.75,
+                fillColor: classColor
+            }
+        };
+
+        map.createPane('overlayMid');
+        map.getPane('overlayMid').style.zIndex = 450;
+        map.createPane('overlayUpper');
+        map.getPane('overlayUpper').style.zIndex = 475;
+        layers = [
+            ['../layers/elevation.geojson', 'Elevation', elevationStyle, 'overlayPane'],
+            ['../layers/station.geojson', 'La Selva Research Station', {color: '#005500', weight: 1}, 'overlayMid'],
+            ['../layers/boundary.geojson', 'Braulio Carrillo National Park', {color: '#333333', weight: 1, dashArray: '5, 5'}, 'overlayMid'],
+            ['../layers/transect.geojson', 'Transect', {color: '#000000', weight: 1}, 'overlayUpper'],
+            ['../layers/plots.geojson', 'Plots', {color: '#000000', weight: 1}, 'overlayUpper'],
+        ];
+
+        const loadLayers = async (layers) => {
+            for(const layerDef of layers) {
+                await axios.get(layerDef[0])
+                .then( response => {
+                    const layer = L.geoJson(response.data, {style: layerDef[2], pane: layerDef[3]}).addTo(map);
+                    layerControl.addOverlay(layer, layerDef[1]);
+                })
+                .catch( error => {
+                    /* Here you would add error handling and notification */
+                    console.log(error);
+                })
+                .finally( () => {
+
+                });
+            }
+        };
+        loadLayers(layers);
+        
+        let elevationLegend = null;
+        const genElevationLegend = (show) => {
+            if(elevationLegend !== null) {
+                elevationLegend.remove();
+                elevationLegend = null;
+            }
+            if(show === true) {
+                elevationLegend = L.control({ position: "bottomleft" });
+                elevationLegend.onAdd = function() {
+                    const div = L.DomUtil.create("div", "elevationLegend");
+                    div.style['background-color'] = '#fff';
+                    div.style.padding = '10px';
+                    div.innerHTML += '<span style="font-size: 1.2em;font-weight: bold">Elevation (m)</span><br/>';
+
+                    /* Add entry for each elevation bin */
+                    const style = 'width: 18px;height: 18px;float: left;margin-right: 8px;border: 1px solid #aaaaaa;';
+                    div.innerHTML += `<div style="height: 24px"><i style="${style}background-color: #80b388"></i> &lt;= 500</div>`;
+                    div.innerHTML += `<div style="height: 24px"><i style="${style}background-color: #c6e3ad"></i>500 &ndash; 1000</div>`;
+                    div.innerHTML += `<div style="height: 24px"><i style="${style}background-color: #f4eeb2"></i>1000 &ndash; 1500</div>`;
+                    div.innerHTML += `<div style="height: 24px"><i style="${style}background-color: #f5d485"></i>1500 &ndash; 2000</div>`;
+                    div.innerHTML += `<div style="height: 24px"><i style="${style}background-color: #f0a46a"></i>2000 &ndash; 2500</div>`;
+                    div.innerHTML += `<div style="height: 24px"><i style="${style}background-color: #da8862"></i>2500 &ndash; 3000</div>`;
+                    div.innerHTML += `<div style="height: 24px"><i style="${style}background-color: #ffffff"></i>3000 &ndash; 3500</div>`;
+                    return div
+                }
+                elevationLegend.addTo(map);
+            }
+        };
+        genElevationLegend(true);
+    
+        map.on('overlayadd', function(layer){
+            if (layer.name === 'Elevation'){
+                genElevationLegend(true);
+            } 
+        });
+
+        map.on('overlayremove', function(layer){
+            if (layer.name === 'Elevation'){
+                genElevationLegend(false);
+            } 
+        });
+        
+        </script>
+    </body>
+</html>
