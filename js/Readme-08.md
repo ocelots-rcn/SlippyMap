@@ -1,5 +1,7 @@
 # Clustering Point Data
-File: [js-map-08.html](js-map-08.html) 
+File: [js-map-08.html](js-map-08.html)
+
+Demo: https://ocelots-rcn.github.io/SlippyMap/js/js-map-08.html
 
 A major issue with our map is that many of the points overlap. The user can't easily see the distribution when multiple species are displayed and there is no indication of how many points there are at any one location.
 

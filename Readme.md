@@ -30,13 +30,13 @@ If you are a R user,
 Once you launch one of the above scripts, you can open a browser and enter http://localhost:8080 into the address bar.
 
 ## Tutorial Outline
-The primary example is written in JavaScript, the native language for web browsers. Also included is a python example (incomplete) to highlight some exciting emerging web technology that is not quite production ready, but worth keeping an eye on.
+The primary example is written in JavaScript, the native language for web browsers. Other examples (i.e., Python and R) may be added at a later date.
 
-* Chapter 1: Basic template ([JavaScript](./js/Readme-01.md)) ([Python](./python/Readme-01.md))
-* Chapter 2: Adding the base map ([JavaScript](./js/Readme-02.md)) ([Python](./python/Readme-02.md))
-* Chapter 3: Adding a custom image overlay ([JavaScript](./js/Readme-03.md)) ([Python](./python/Readme-03.md))
-* Chapter 4: Adding and styling a polygon layer ([JavaScript](./js/Readme-04.md)) ([Python](./python/Readme-04.md))
-* Chapter 5: Adding a legend ([JavaScript](./js/Readme-05.md)) ([Python](./python/Readme-05.md))
+* Chapter 1: Basic template ([JavaScript](./js/Readme-01.md))
+* Chapter 2: Adding the base map ([JavaScript](./js/Readme-02.md))
+* Chapter 3: Adding a custom image overlay ([JavaScript](./js/Readme-03.md))
+* Chapter 4: Adding and styling a polygon layer ([JavaScript](./js/Readme-04.md))
+* Chapter 5: Adding a legend ([JavaScript](./js/Readme-05.md))
 * Chapter 6: Restructuring the vector loading process ([JavaScript](./js/Readme-06.md))
 * Chapter 7: Adding point data ([JavaScript](./js/Readme-07.md))
 * Chapter 8: Clustering point data ([JavaScript](./js/Readme-08.md))

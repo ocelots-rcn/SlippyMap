@@ -1,5 +1,7 @@
 # Restructuring the Vector Loading Process
-File: [js-map-06.html](js-map-06.html) 
+File: [js-map-06.html](js-map-06.html)
+
+Demo: https://ocelots-rcn.github.io/SlippyMap/js/js-map-06.html
 
 Up to this point we have just been adding new code. In this chapter, we are going to do a bit of refactoring to make loading the other vector layers a little easier and compact. 
 
@@ -119,8 +121,5 @@ map.on('overlayremove', function(layer){
     } 
 });
 ```
-
-
-Demo: [Some URL](./)
 
 ### Chapter 7: [Adding point data](./Readme-07.md)

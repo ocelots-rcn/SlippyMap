@@ -1,5 +1,7 @@
 # Adding Point Data
-File: [js-map-07.html](js-map-07.html) 
+File: [js-map-07.html](js-map-07.html)
+
+Demo: https://ocelots-rcn.github.io/SlippyMap/js/js-map-07.html
 
 Our point data represent beetle collection locations and our overarching objective in creating this interactive map is to allow users to see their distribution and highlight the fact that different species have specific thermal tolerances which relate to elevation.
 
@@ -104,7 +106,5 @@ axios.get('../layers/beetles.json')
 
 });
 ```
-
-Demo: [Some URL](./)
 
 ### Chapter 7: [Clustering point data](./Readme-08.md)

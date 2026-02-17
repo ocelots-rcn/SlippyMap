@@ -1,6 +1,8 @@
 # Basic Template
 File: [js-map-01.html](js-map-01.html)
 
+Demo: https://ocelots-rcn.github.io/SlippyMap/js/js-map-01.html
+
 This file represents the basic HTML / JavaScript template for building a slippy map with Leaflet.
 
 The header block contains some device setup meta tags, as well as the code for loading the Leaflet library.
@@ -48,7 +50,5 @@ The second important part is in the body where we define the "target" component 
 </body>
 ```
 If you load this file into your browser, you will only see a blank page with rectangle which is where the map will be rendered.
-
-Demo: [Some URL](./)
 
 ### Chapter 2: [Adding the base map](./Readme-02.md)

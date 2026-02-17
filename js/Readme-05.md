@@ -1,5 +1,7 @@
 # Adding a Legend
-File: [js-map-05.html](js-map-05.html) 
+File: [js-map-05.html](js-map-05.html)
+
+Demo: https://ocelots-rcn.github.io/SlippyMap/js/js-map-05.html
 
 While the hillshaded layer and the colored elevational polygons are visually appealing and help to illustrate the elevation gradients, they still don't actually inform the end user of the elevations. So let's add a legend to the map!
 
@@ -48,7 +50,5 @@ Let's break down the legend generation function into its main logic sections. Wh
 - Instantiate a new control (legend) object
 - Override the default *L.control.onAdd()* to actually build the legend
 - Add the newly created legend to the map
-
-Demo: [Some URL](./)
 
 ### Chapter 6: [Restructuring the vector loading process](./Readme-06.md)

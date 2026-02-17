@@ -1,5 +1,7 @@
 # Adding and Styling a Polygon Layer
-File: [js-map-04.html](js-map-04.html) 
+File: [js-map-04.html](js-map-04.html)
+
+Demo: https://ocelots-rcn.github.io/SlippyMap/js/js-map-04.html
 
 The hillshaded image overlay is a visually appealing representation of elevation, but does not provide any actual elevation information. 
 
@@ -116,7 +118,5 @@ axios.get('../layers/elevation.geojson')
 
 ### Note: Asynchronous Design Considerations
 Asynchronous programs can get complicated. Remember, any code below what is represented in the block above will (may) be executed before the block is finished!
-
-Demo: [Some URL](./)
 
 ### Chapter 5: [Adding a legend](./Readme-05.md)
