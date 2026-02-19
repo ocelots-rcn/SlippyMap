@@ -16,7 +16,7 @@ Each entry for a species has four attributes,
 - display: boolean value indicating if the species is being displayed
 - group: a variable that holds the point layer
 
-```javasript
+```javascript
 let beetles = {};
 const species = {
     'C. belti': {'code': 'C_belti', 'color': 'rgb(255, 0, 0)', 'display': true, group: null},

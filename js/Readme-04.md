@@ -11,7 +11,7 @@ All vector layers will be in the GeoJSON format and will need to be dynamically 
 
 Axios is a widely used library for dynamic HTTP requests. To leverage its functionality, we need to load the library by adding the following lines to the header section of the html document.
 
-```javascript
+```html
 <!-- Extra libraries -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 ```

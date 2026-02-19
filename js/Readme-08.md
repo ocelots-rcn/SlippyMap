@@ -9,8 +9,8 @@ One thing we can do is to cluster the points. To do this, we will leverage the m
 
 We start by adding the imports to the header section.  
 
-```javascript
-script 
+```html
+<script>
     src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"
     integrity="sha256-Hk4dIpcqOSb0hZjgyvFOP+cEmDXUKKNE/tT542ZbNQg="
     crossorigin="">

@@ -7,7 +7,7 @@ This file represents the basic HTML / JavaScript template for building a slippy 
 
 The header block contains some device setup meta tags, as well as the code for loading the Leaflet library.
 
-```javascript
+```html
 <head>
     <!-- Base meta tags -->
     <meta charset="UTF-8">
@@ -40,7 +40,7 @@ The header block contains some device setup meta tags, as well as the code for l
 
 The second important part is in the body where we define the "target" component (div) where the map will ultimately be rendered and the script block where all of our slippy map specific code will live.
 
-```javascript
+```html
 <body>
     <div id="map-area"></div>
 
