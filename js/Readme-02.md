@@ -11,7 +11,7 @@ The first step is to assign an map instance to the global variable *map* by pass
     <!-- JavaScript for project -->
     <script>
     var map = L.map('map-area').setView([10.240, -84.041], 9);
-```
+```javascript
 Method chaining is a common approach in object oriented programming to invoke multiple methods sequentially in a single statement. The following two code blocks would provide the same result. 
 ```javascript
 var map = L.map('map-area').setView([10.240, -84.041], 9);
