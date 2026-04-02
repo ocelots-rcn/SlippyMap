@@ -40,3 +40,27 @@ The primary example is written in JavaScript, the native language for web browse
 * Chapter 6: Restructuring the vector loading process ([JavaScript](./js/Readme-06.md))
 * Chapter 7: Adding point data ([JavaScript](./js/Readme-07.md))
 * Chapter 8: Clustering point data ([JavaScript](./js/Readme-08.md))
+
+## Licenses and Acknowledgements
+
+<ins>Code</ins>
+
+The JavaScript and Python code included in this repository are license free and released into the public domain.
+
+<ins>Spatial Layers</ins>
+
+The [Organization for Tropical Studies (OTS)](https://tropicalstudies.org/) provided the following spatial layers under the Creative Commons Attribution-ShareAlike 4.0 International license:
+
+* *layers/elevation.geojson*
+* *layers/hillshade.png*
+* *layers/plots.geojson*
+* *layers/station.geojson*
+* *layers/transect.geojson*
+
+*layers/boundary.geojson* is a subset of the Áreas Silvestres Protegidas layer available from Sistema Nacional de Áreas de Conservación (SINAC)
+
+<ins>Beetle Data</ins>
+
+If the *layers/beetles.json* is used for any purpose, it should carry the following citation:
+
+García-Robledo, C., Kuprewicz, E. K., Staines, C. L., Erwin, T. L., & Kress, W. J. (2016). Limited tolerance by insects to high temperatures across tropical elevational gradients and the implications of global warming for extinction. Proceedings of the National Academy of Sciences, 113(3), 680-685.
