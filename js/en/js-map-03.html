@@ -48,7 +48,7 @@
 
         layerControl.addBaseLayer(ewi, 'ESRI World Imagery');
 
-        const hillshade_url = '../layers/hillshade.png';
+        const hillshade_url = '../../layers/hillshade.png';
         const hillshade_bounds = [[9.7784494, -84.5887677], [10.7022354, -83.4716701]];
         const hillshade = L.imageOverlay(hillshade_url, hillshade_bounds).addTo(map);
         layerControl.addOverlay(hillshade, 'Hillshade');
