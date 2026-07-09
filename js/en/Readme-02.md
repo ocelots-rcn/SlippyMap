@@ -1,7 +1,7 @@
 # Adding the Base Map
 File: [js-map-02.html](js-map-02.html)
 
-Demo: https://ocelots-rcn.github.io/SlippyMap/js/js-map-02.html
+Demo: https://ocelots-rcn.github.io/SlippyMap/js/en/js-map-02.html
 
 The first step is to assign an map instance to the global variable *map* by passing in the id (*map-area*) of the div where the map will be rendered on the page and at the same time setting the origin of the map and the initial zoom level.
 

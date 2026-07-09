@@ -1,7 +1,7 @@
 # Adding and Styling a Polygon Layer
 File: [js-map-04.html](js-map-04.html)
 
-Demo: https://ocelots-rcn.github.io/SlippyMap/js/js-map-04.html
+Demo: https://ocelots-rcn.github.io/SlippyMap/js/en/js-map-04.html
 
 The hillshaded image overlay is a visually appealing representation of elevation, but does not provide any actual elevation information. 
 

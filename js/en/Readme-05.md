@@ -1,7 +1,7 @@
 # Adding a Legend
 File: [js-map-05.html](js-map-05.html)
 
-Demo: https://ocelots-rcn.github.io/SlippyMap/js/js-map-05.html
+Demo: https://ocelots-rcn.github.io/SlippyMap/js/en/js-map-05.html
 
 While the hillshaded layer and the colored elevational polygons are visually appealing and help to illustrate the elevation gradients, they still don't actually inform the end user of the elevations. So let's add a legend to the map!
 

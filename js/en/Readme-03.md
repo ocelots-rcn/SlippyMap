@@ -1,7 +1,7 @@
 # Adding a Custom Image Overlay
 File: [js-map-03.html](js-map-03.html)
 
-Demo: https://ocelots-rcn.github.io/SlippyMap/js/js-map-03.html
+Demo: https://ocelots-rcn.github.io/SlippyMap/js/en/js-map-03.html
 
 Now that we are going to start adding additional layers to the map, we want some way for the end user to be able to select which layers are being displayed. We do this by adding control component for layers.
 
