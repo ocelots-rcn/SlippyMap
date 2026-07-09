@@ -22,6 +22,25 @@
         <!-- Extra libraries -->
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+        <script 
+            src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"
+            integrity="sha256-Hk4dIpcqOSb0hZjgyvFOP+cEmDXUKKNE/tT542ZbNQg="
+            crossorigin="">
+        </script>
+
+        <link 
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+            integrity="sha256-YU3qCpj/P06tdPBJGPax0bm6Q1wltfwjsho5TR4+TYc="
+            crossorigin=""/>
+        <link 
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+            integrity="sha256-YSWCMtmNZNwqex4CEw1nQhvFub2lmU7vcCKP+XVwwXA="
+            crossorigin=""/>
+ 
+
+
         <!-- CSS for project -->
         <style media="screen">
             #map-area {
@@ -36,7 +55,7 @@
 
         <!-- JavaScript for project -->
         <script>
-        var map = L.map('map-area').setView([10.240, -84.041], 9);
+        var map = L.map('map-area', {maxZoom: 14}).setView([10.240, -84.041], 9);
 
         const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -51,7 +70,7 @@
 
         layerControl.addBaseLayer(ewi, 'ESRI World Imagery');
 
-        const hillshade_url = '../layers/hillshade.png';
+        const hillshade_url = '../../layers/hillshade.png';
         const hillshade_bounds = [[9.7784494, -84.5887677], [10.7022354, -83.4716701]];
         const hillshade = L.imageOverlay(hillshade_url, hillshade_bounds).addTo(map);
         layerControl.addOverlay(hillshade, 'Hillshade');
@@ -93,11 +112,11 @@
         map.createPane('overlayUpper');
         map.getPane('overlayUpper').style.zIndex = 475;
         layers = [
-            ['../layers/elevation.geojson', 'Elevation', elevationStyle, 'overlayPane'],
-            ['../layers/station.geojson', 'La Selva Research Station', {color: '#005500', weight: 1}, 'overlayMid'],
-            ['../layers/boundary.geojson', 'Braulio Carrillo National Park', {color: '#333333', weight: 1, dashArray: '5, 5'}, 'overlayMid'],
-            ['../layers/transect.geojson', 'Transect', {color: '#000000', weight: 1}, 'overlayUpper'],
-            ['../layers/plots.geojson', 'Plots', {color: '#000000', weight: 1}, 'overlayUpper'],
+            ['../../layers/elevation.geojson', 'Elevation', elevationStyle, 'overlayPane'],
+            ['../../layers/station.geojson', 'La Selva Research Station', {color: '#005500', weight: 1}, 'overlayMid'],
+            ['../../layers/boundary.geojson', 'Braulio Carrillo National Park', {color: '#333333', weight: 1, dashArray: '5, 5'}, 'overlayMid'],
+            ['../../layers/transect.geojson', 'Transect', {color: '#000000', weight: 1}, 'overlayUpper'],
+            ['../../layers/plots.geojson', 'Plots', {color: '#000000', weight: 1}, 'overlayUpper'],
         ];
 
         const loadLayers = async (layers) => {
@@ -201,26 +220,28 @@
         };
         speciesSelection();
 
-
+        let clusterGroup = L.markerClusterGroup({
+            maxClusterRadius: 30,
+            showCoverageOnHover: false}).addTo(map);
         const displayBeetles = () => {
+            clusterGroup.clearLayers();
             Object.keys(species).forEach(name => {
-                if(species[name].display === true && species[name].group === null) {
+                var customIcon = L.icon({
+                        iconAnchor: [5, 5],
+                        iconUrl: `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><circle cx="5" cy="5" r="5" fill="${species[name].color}" /></svg>`
+                    });
+                if(species[name].display === true) {
                     points = beetles[species[name].code];
-                    markers = [];
+
                     for(const point of points) {
-                        let marker = L.circleMarker([point[1], point[0]], {pane: 'markerPane', radius: 2, color: species[name].color});
-                        markers.push(marker);
+                        let marker = L.marker([point[1], point[0]], { icon: customIcon });
+                        clusterGroup.addLayer(marker);      
                     }
-                    species[name].group = L.layerGroup(markers).addTo(map);      
-                }
-                else if(species[name].display === false && species[name].group != null) {
-                    map.removeLayer(species[name].group);
-                    species[name].group = null;
                 }
             });
         };
 
-        axios.get('../layers/beetles.json')
+        axios.get('../../layers/beetles.json')
         .then( response => {
             beetles = response.data;
             displayBeetles();

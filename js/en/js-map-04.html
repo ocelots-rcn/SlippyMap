@@ -19,6 +19,9 @@
             crossorigin="">
         </script>
 
+        <!-- Extra libraries -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
         <!-- CSS for project -->
         <style media="screen">
             #map-area {
@@ -48,10 +51,55 @@
 
         layerControl.addBaseLayer(ewi, 'ESRI World Imagery');
 
-        const hillshade_url = '../layers/hillshade.png';
+        const hillshade_url = '../../layers/hillshade.png';
         const hillshade_bounds = [[9.7784494, -84.5887677], [10.7022354, -83.4716701]];
         const hillshade = L.imageOverlay(hillshade_url, hillshade_bounds).addTo(map);
         layerControl.addOverlay(hillshade, 'Hillshade');
+
+        const elevationStyle = (feature) => {
+            let classColor = '';
+            switch(feature.properties.class) {
+                case 1:
+                    classColor = '#80b388';
+                    break;
+                case 2:
+                    classColor = '#c6e3ad';
+                    break;
+                case 3:
+                    classColor = '#f4eeb2';
+                    break;
+                case 4:
+                    classColor = '#f5d485';
+                    break;
+                case 5:
+                    classColor = '#f0a46a';
+                    break;
+                case 6:
+                    classColor = '#da8862';
+                    break;
+                default:
+                    classColor = '#FFFFFF';
+            }
+            /* Return a style for the polygon based on 'class' */
+            return {
+                weight: 0,
+                fillOpacity: 0.75,
+                fillColor: classColor
+            }
+        };
+
+        axios.get('../../layers/elevation.geojson')
+        .then( response => {
+            const elevation = L.geoJson(response.data, {style: elevationStyle}).addTo(map);
+            layerControl.addOverlay(elevation, 'Elevation');
+        })
+        .catch( error => {
+            /* Here you would add error handling and notification */
+            console.log(error);
+        })
+        .finally( () => {
+
+        });
 
         </script>
     </body>
