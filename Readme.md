@@ -1,4 +1,4 @@
-Langauge: [Spanish](Readme-es.md)
+Language: [Spanish](Readme-es.md)
 # Slippy Maps
 Slippy maps, or tiled web maps, are a ubiquitous technology for creating and displaying interactive maps in a standard web browser. When used appropriately, maps can be a powerful teaching tool to promote critical thinking and spatial awareness skills, highlight relationships within data, and communicate a range of complex topics that words alone can not always convey. 
 
