@@ -38,8 +38,8 @@ Cada entrada contiene la siguiente información:
 
 ```javascript
 layers = \[
-    \['../layers/elevation.geojson', 'Elevación', elevationStyle, 'overlayPane'],
-    \['../layers/station.geojson', 'Estación Biológica La Selva', {color: '#005500', weight: 1}, 'overlayMid'],
+    \['../layers/elevation.geojson', 'Altitud', elevationStyle, 'overlayPane'],
+    \['../layers/station.geojson', 'Estación de Investigación La Selva', {color: '#005500', weight: 1}, 'overlayMid'],
     \['../layers/boundary.geojson', 'Parque Nacional Braulio Carrillo', {color: '#333333', weight: 1, dashArray: '5, 5'}, 'overlayMid'],
     \['../layers/transect.geojson', 'Transecto', {color: '#000000', weight: 1}, 'overlayUpper'],
     \['../layers/plots.geojson', 'Parcelas', {color: '#000000', weight: 1}, 'overlayUpper'],
@@ -112,13 +112,13 @@ Por último, debemos agregar algunos *listeners* que se ejecutarán cuando se ac
 
 ```javascript
 map.on('overlayadd', function(layer){
-    if (layer.name === 'Elevación'){
+    if (layer.name === 'Altitud'){
         genElevationLegend(true);
     } 
 });
 
 map.on('overlayremove', function(layer){
-    if (layer.name === 'Elevación'){
+    if (layer.name === 'Altitud'){
         genElevationLegend(false);
     } 
 });
