@@ -23,7 +23,7 @@ const genElevationLegend = () => {
         const div = L.DomUtil.create("div", "elevationLegend");
         div.style\['background-color'] = '#fff';
         div.style.padding = '10px';
-        div.innerHTML += '<span style="font-size: 1.2em;font-weight: bold">Elevación (m)</span><br/>';
+        div.innerHTML += '<span style="font-size: 1.2em;font-weight: bold">Altitud (m s. n. m.)</span><br/>';
 
         /\* Agregar una entrada para cada intervalo de elevación \*/
         const style = 'width: 18px;height: 18px;float: left;margin-right: 8px;border: 1px solid #aaaaaa;';
