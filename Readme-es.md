@@ -33,14 +33,14 @@ Una vez que ejecute uno de los scripts anteriores, puede abrir un navegador e in
 ## Contenido del tutorial
 El ejemplo principal está escrito en JavaScript, el lenguaje nativo de los navegadores web. En el futuro podrían agregarse otros ejemplos, por ejemplo, en Python y R.
 
-* Capítulo 1: Plantilla básica ([JavaScript](./js/en/Readme-01.md))
-* Capítulo 2: Agregar el mapa base ([JavaScript](./js/en/Readme-02.md))
-* Capítulo 3: Agregar una imagen personalizada como superposición ([JavaScript](./js/en/Readme-03.md))
-* Capítulo 4: Agregar y aplicar estilo a una capa de polígonos ([JavaScript](./js/en/Readme-04.md))
-* Capítulo 5: Agregar una leyenda ([JavaScript](./js/en/Readme-05.md))
-* Capítulo 6: Reestructurar el proceso de carga de datos vectoriales ([JavaScript](./js/en/Readme-06.md))
-* Capítulo 7: Agregar datos de puntos ([JavaScript](./js/en/Readme-07.md))
-* Capítulo 8: Agrupar datos de puntos ([JavaScript](./js/en/Readme-08.md))
+* Capítulo 1: Plantilla básica ([JavaScript](./js/es/Readme-01.md))
+* Capítulo 2: Agregar el mapa base ([JavaScript](./js/es/Readme-02.md))
+* Capítulo 3: Agregar una imagen personalizada como superposición ([JavaScript](./js/es/Readme-03.md))
+* Capítulo 4: Agregar y aplicar estilo a una capa de polígonos ([JavaScript](./js/es/Readme-04.md))
+* Capítulo 5: Agregar una leyenda ([JavaScript](./js/es/Readme-05.md))
+* Capítulo 6: Reestructurar el proceso de carga de datos vectoriales ([JavaScript](./js/es/Readme-06.md))
+* Capítulo 7: Agregar datos de puntos ([JavaScript](./js/es/Readme-07.md))
+* Capítulo 8: Agrupar datos de puntos ([JavaScript](./js/es/Readme-08.md))
 
 ## Licencias y agradecimientos
 
@@ -50,7 +50,7 @@ El código JavaScript y Python incluido en este repositorio no tiene restriccion
 
 <ins>Capas espaciales</ins>
 
-La [Organización para Estudios Tropicales (OET)](https://tropicalstudies.org/) proporcionó las siguientes capas espaciales bajo la licencia Creative Commons Atribución-CompartirIgual 4.0 Internacional:
+La [Organización para Estudios Tropicales (OET)](https://tropicalstudies.org/) proporcionó las siguientes capas espaciales bajo la licencia Creative Commons Attribution-ShareAlike 4.0 International:
 
 * *layers/elevation.geojson*
 * *layers/hillshade.png*
