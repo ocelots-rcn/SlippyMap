@@ -107,4 +107,4 @@ axios.get('../layers/beetles.json')
 });
 ```
 
-### Chapter 7: [Clustering point data](./Readme-08.md)
+### Chapter 8: [Clustering point data](./Readme-08.md)
